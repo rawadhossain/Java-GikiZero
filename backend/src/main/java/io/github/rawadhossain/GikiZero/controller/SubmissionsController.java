@@ -1,10 +1,11 @@
 package io.github.rawadhossain.GikiZero.controller;
 
-import io.github.rawadhossain.model.Submission;
-import io.github.rawadhossain.service.SubmissionService;
+import io.github.rawadhossain.GikiZero.model.Submission;
+import io.github.rawadhossain.GikiZero.service.SubmissionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -23,10 +24,24 @@ public class SubmissionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Submission> getSubmissionById(@PathVariable Long id) {
+    public ResponseEntity<Submission> getSubmissionById(@PathVariable String id) {
         return submissionService.getSubmissionById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Submission> getSubmissionsByUser(@PathVariable String userId) {
+        return submissionService.getSubmissionsByUser(userId);
+    }
+
+    @GetMapping("/user/{userId}/since")
+    public List<Submission> getSubmissionsSince(
+            @PathVariable String userId,
+            @RequestParam("date") String date
+    ) {
+        LocalDateTime sinceDate = LocalDateTime.parse(date);
+        return submissionService.getSubmissionsSince(userId, sinceDate);
     }
 
     @PostMapping
@@ -35,7 +50,7 @@ public class SubmissionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSubmission(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteSubmission(@PathVariable String id) {
         submissionService.deleteSubmission(id);
         return ResponseEntity.noContent().build();
     }

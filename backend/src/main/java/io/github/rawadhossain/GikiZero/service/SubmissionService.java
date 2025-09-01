@@ -19,7 +19,7 @@ public class SubmissionService {
         return submissionRepository.findAll();
     }
 
-    public Optional<Submission> getSubmissionById(Long id) {
+    public Optional<Submission> getSubmissionById(String id) {
         return submissionRepository.findById(id);
     }
 
@@ -27,7 +27,15 @@ public class SubmissionService {
         return submissionRepository.save(submission);
     }
 
-    public void deleteSubmission(Long id) {
+    public void deleteSubmission(String id) {
         submissionRepository.deleteById(id);
+    }
+
+    public List<Submission> getSubmissionsByUser(String userId) {
+        return submissionRepository.findByUser_IdOrderByCreatedAtDesc(userId);
+    }
+
+    public List<Submission> getSubmissionsSince(String userId, LocalDateTime date) {
+        return submissionRepository.findByUser_IdAndCreatedAtAfterOrderByCreatedAtDesc(userId, date);
     }
 }
