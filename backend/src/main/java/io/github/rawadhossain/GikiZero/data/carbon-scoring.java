@@ -311,8 +311,7 @@ public class CarbonCalculator {
                 )
         ));
 
-        // 👉 You would need to add the rest like in your TypeScript version (electricityUnits, waterUsage, etc.)
-
+    
         Collections.shuffle(allQuestions);
         int size = 10 + new Random().nextInt(3); // 10–12
         return allQuestions.subList(0, Math.min(size, allQuestions.size()));
