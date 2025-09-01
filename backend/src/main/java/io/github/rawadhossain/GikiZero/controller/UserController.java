@@ -1,7 +1,7 @@
 package io.github.rawadhossain.GikiZero.controller;
 
 import io.github.rawadhossain.GikiZero.model.User;
-import io.github.rawadhossain.GikiZero.repository.UserRepository;
+import io.github.rawadhossain.GikiZero.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,42 +12,41 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     // Get all users
     @GetMapping
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userService.getAllUsers();
     }
 
     // Get user by ID
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
-        return userRepository.findById(id).orElse(null);
+    public User getUserById(@PathVariable String id) {
+        return userService.getUserById(id).orElse(null);
     }
 
     // Create new user
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return userRepository.save(user);
+        return userService.createUser(user);
     }
 
-    // Update user
-    @PutMapping("/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user != null) {
-            user.setName(userDetails.getName());
-            user.setEmail(userDetails.getEmail());
-            return userRepository.save(user);
-        }
-        return null;
+    // Update onboarding (equivalent to Next.js POST /api/user)
+    @PutMapping("/{id}/onboarding")
+    public User completeOnboarding(
+            @PathVariable String id,
+            @RequestParam String name,
+            @RequestParam String age,
+            @RequestParam String location
+    ) {
+        return userService.updateOnboarding(id, name, age, location);
     }
 
     // Delete user
     @DeleteMapping("/{id}")
-    public String deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+    public String deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
         return "User deleted with id " + id;
     }
 }
