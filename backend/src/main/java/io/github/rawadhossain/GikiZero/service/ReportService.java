@@ -19,15 +19,19 @@ public class ReportService {
         return reportRepository.findAll();
     }
 
-    public Optional<Report> getReportById(Long id) {
+    public Optional<Report> getReportById(String id) {
         return reportRepository.findById(id);
+    }
+
+    public List<Report> getReportsByUser(String userId) {
+        return reportRepository.findByUser_Id(userId);
     }
 
     public Report createReport(Report report) {
         return reportRepository.save(report);
     }
 
-    public void deleteReport(Long id) {
+    public void deleteReport(String id) {
         reportRepository.deleteById(id);
     }
 }

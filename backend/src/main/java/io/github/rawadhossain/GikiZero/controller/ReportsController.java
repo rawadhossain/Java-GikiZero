@@ -1,7 +1,7 @@
 package io.github.rawadhossain.GikiZero.controller;
 
-import io.github.rawadhossain.model.Report;
-import io.github.rawadhossain.service.ReportService;
+import io.github.rawadhossain.GikiZero.model.Report;
+import io.github.rawadhossain.GikiZero.service.ReportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +23,15 @@ public class ReportController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Report> getReportById(@PathVariable Long id) {
+    public ResponseEntity<Report> getReportById(@PathVariable String id) {
         return reportService.getReportById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Report> getReportsByUser(@PathVariable String userId) {
+        return reportService.getReportsByUser(userId);
     }
 
     @PostMapping
@@ -35,7 +40,7 @@ public class ReportController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReport(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteReport(@PathVariable String id) {
         reportService.deleteReport(id);
         return ResponseEntity.noContent().build();
     }
