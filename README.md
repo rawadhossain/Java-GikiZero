@@ -77,7 +77,7 @@ frontend/
 
 ## 🛠️ Tech Stack
 
-### 🧑‍💻 Fronten
+### 🧑‍💻 Frontend
 
 - **Next.js (App Router)** – Full-stack React framework
 - **TypeScript** – Type-safe development
@@ -115,6 +115,11 @@ frontend/
 
 ## 📐 Setup Instructions
 
+###  Clone the Repository
+```bash
+git clone https://github.com/rawadhossain/Java-GikiZero.git
+```
+
 ### Configure Database
 ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/gikizero
@@ -128,10 +133,6 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 
 
-###  Clone the Repository
-```bash
-git clone https://github.com/rawadhossain/Java-GikiZero.git
-```
 ###   Set Environment Variables
 Create a ```.env``` file in the root directory and fill in:
 ```
