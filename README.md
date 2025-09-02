@@ -1,87 +1,83 @@
 # 🌱 Giki Zero – Personal Carbon Footprint Tracker
 
-> A modern, AI-powered web application to help users track their lifestyle-based carbon emissions, visualize progress, and receive personalized eco-friendly suggestions.
+
+> A modern backend built with Spring Boot to power the Personal Carbon Footprint Tracker.  
+> Provides APIs for survey submission, carbon emission calculation, dashboard insights, and AI-powered eco-friendly suggestions.
 
 ---
 
 ## 🌟 Features
 
-### 🔐 Authentication & Onboarding
-
-- Google OAuth + Email (NextAuth)
-
-- JWT-based session handling and CSRF protection
-
-- Onboarding form for name, age, and location
-
+### 🔐 Authentication
+- Google OAuth (handled in frontend – Next.js)  
+- Backend secured with JWT-based auth support (optional if you extend later)
 
 ### 📊 Lifestyle Input & Carbon Score
-
-- Multi-step lifestyle survey:
-  - Transportation type and distance
-  - Energy and water usage
-  - Diet habits (veg/non-veg)
-  - Food waste level
-  - Clothing purchases
-  - Electronics and media usage
+- REST APIs for survey submission and history
+- Categories covered:
+  - Transportation
+  - Energy & water usage
+  - Diet habits
+  - Clothing & electronics
   - Appliance usage
-  - Air travel frequency
-  - Waste management & recycling
-- Rotating question sets on repeated visits
-- Carbon emission calculated based on input
-- Emission score stored in PostgreSQL via Prisma
+  - Air travel
+  - Waste management
+- Emission calculation services integrated with database
+- Store scores and responses in PostgreSQL
 
-### 📈 Dashboard & Visual Insights
+### 📈 Dashboard & Insights
+- Endpoints to fetch personalized dashboard data
+- Breakdown by lifestyle category
+- Weekly/monthly trends
+- Categorization into *Low / Moderate / High impact*
 
-- Personalized dashboard greeting
-- Real-time charts (bar, pie, line) to show:
-  - Total emission score
-  - Weekly/monthly change
-  - Breakdown by category
-- Categorize users: *Low / Moderate / High impact*
-- Sustainable carousel tips (refreshing from Gemini AI)
-
-### 🤖 AI-Powered Suggestions
-
-- Gemini API integration for:
-  - 3–5 personalized tips based on lifestyle input
-  - Context-aware suggestions with reasoning
-  - Estimated CO₂ savings per suggestion
-- Smart Suggestions panel in dashboard
-- Tips stored for reuse in PDF report
+### 🤖 AI Suggestions (Optional Extension)
+- AI-powered eco-tips integration (e.g., Gemini API or OpenAI)  
+- Context-aware suggestions returned by API  
+- Future support for saving tips into reports
 
 ### 📄 Report Generation
-
-- “Download My Report” feature
-- Generate PDF containing:
+- API endpoint to generate PDF report (Spring Boot + iText or JasperReports)
+- Report includes:
   - Profile details
-  - Lifestyle input summary
-  - Carbon emission score & breakdown
-  - Graphs and trends
-  - AI-generated tips
+  - Lifestyle survey summary
+  - Carbon emission score
+  - Breakdown charts
+  - AI suggestions (if enabled)
 
+---
 
 ## 📁 Project Structure
 ```
-giki-zero/
+java-giki-zero/
+backend/
+├── src/main/java/com/example/gikizero
+│ ├── model/                    # Entity classes (User, Survey, EmissionScore)
+│ ├── repository/               # Spring Data JPA repositories
+│ ├── service/                  # Business logic & emission calculation
+│ ├── controller/               # REST API endpoints
+│ └── GikiZeroApplication.java  # Main entry point
+├── src/main/resources/
+│ ├── application.properties    # DB & app config
+│ └── static/                   # (Optional) static assets
+└── pom.xml                     # Maven dependencies
+|
+frontend/
 ├── src/
 │   ├── app/                    # App Router structure
 │   │   ├── dashboard/          # User dashboard
 │   │   ├── survey/             # Lifestyle survey form
-│   │   ├── api/                # Backend APIs (AI tips, report)
 │   │   └── auth/               # Authentication routes
 │   ├── components/             # UI Components
 │   ├── lib/                    # Utility functions (AI, scoring)
 │   ├── styles/                 # Tailwind & globals
 │   └── types/                  # TypeScript types
-├── prisma/                     # DB schema & migrations
 └── public/                     # Assets and images
-
 ```
 
 ## 🛠️ Tech Stack
 
-### 🧑‍💻 Frontend & Backend
+### 🧑‍💻 Fronten
 
 - **Next.js (App Router)** – Full-stack React framework
 - **TypeScript** – Type-safe development
@@ -90,20 +86,27 @@ giki-zero/
 
 ### 🔗 Backend & Database
 
-- **Next.js Server Actions / API Routes**
-- **Prisma ORM** with **PostgreSQL**
+- **Next.js Server Actions**
 - **NextAuth.js** – Google & Email-based login
+- **Spring Boot 3.x** – Core framework
+- **Spring Web** – REST API
+- **Spring Data JPA** – Database integration
+- **PostgreSQL** – Database
+- **Postgres Database Provider** - NeonDB
+- **Lombok** – Reduce boilerplate
 
 ### 🤖 AI & PDF
 
 - **Gemini API** – AI suggestion engine
-- **@react-pdf/renderer** or **html2pdf.js** – PDF reports
+- **iText / JasperReports** – PDF generation
 
 ### 📦 Dev Tools
 
 - **ESLint & Prettier** – Code formatting and linting
-- **Vercel** – Hosting and CI/CD
+- **Vercel** – Frontend Hosting
+- **Railway** – Backend Hosting
 - **React Hook Form** – Form management
+- **Maven** – Build & dependency management
 
 
 
@@ -112,11 +115,24 @@ giki-zero/
 
 ## 📐 Setup Instructions
 
-### 1. Clone the Repository
+### Configure Database
+```
+spring.datasource.url=jdbc:postgresql://localhost:5432/gikizero
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+```
+
+
+
+###  Clone the Repository
 ```bash
 git clone https://github.com/rawadhossain/Java-GikiZero.git
 ```
-###   2. Set Environment Variables
+###   Set Environment Variables
 Create a ```.env``` file in the root directory and fill in:
 ```
 # Database
@@ -134,17 +150,24 @@ GOOGLE_CLIENT_SECRET=your_google_client_secret
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-### 3. Install Dependencies
+###  Install Dependencies
 ```
 npm install
 ```
 
-### 4. Run the Development Server
+### Install Java dependencies
+```
+mvn clean install
+mvn spring-boot:run
+```
+
+###  Run the Development Server
 ```
 npm run dev
 ```
 
 <br>
+
 
 ## 🌐 API Endpoints
 ### Emission Survey
