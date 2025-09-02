@@ -56,6 +56,7 @@ backend/
 │ ├── repository/               # Spring Data JPA repositories
 │ ├── service/                  # Business logic & emission calculation
 │ ├── controller/               # REST API endpoints
+│ ├── data/                     # Data classes
 │ └── GikiZeroApplication.java  # Main entry point
 ├── src/main/resources/
 │ ├── application.properties    # DB & app config
