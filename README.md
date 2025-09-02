@@ -48,32 +48,31 @@
 ---
 
 ## 📁 Project Structure
-``` bash
+``` 
 java-giki-zero/
-backend/
-├── src/main/java/com/example/gikizero
-│ ├── model/                    # Entity classes (User, Survey, EmissionScore)
-│ ├── repository/               # Spring Data JPA repositories
-│ ├── service/                  # Business logic & emission calculation
-│ ├── controller/               # REST API endpoints
-│ ├── data/                     # Data classes
-│ └── GikiZeroApplication.java  # Main entry point
-├── src/main/resources/
-│ ├── application.properties    # DB & app config
-│ └── static/                   # (Optional) static assets
-└── pom.xml                     # Maven dependencies
-|
-frontend/
-├── src/
-│   ├── app/                    # App Router structure
-│   │   ├── dashboard/          # User dashboard
-│   │   ├── survey/             # Lifestyle survey form
-│   │   └── auth/               # Authentication routes
-│   ├── components/             # UI Components
-│   ├── lib/                    # Utility functions (AI, scoring)
-│   ├── styles/                 # Tailwind & globals
-│   └── types/                  # TypeScript types
-└── public/                     # Assets and images
+├──backend/
+|    ├── src/main/java/com/example/gikizero
+|    │ ├── model/                    # Entity classes (User, Survey, EmissionScore)
+|    │ ├── repository/               # Spring Data JPA repositories
+|    │ ├── service/                  # Business logic & emission calculation
+|    │ ├── controller/               # REST API endpoints
+|    │ ├── data/                     # Data classes
+|    │ └── GikiZeroApplication.java  # Main entry point
+|    ├── src/main/resources/
+|    │ ├── application.properties    # DB & app config
+|    │ └── static/                   # (Optional) static assets
+|    └── pom.xml                     # Maven dependencies
+├──frontend/
+      ├── src/
+      │   ├── app/                    # App Router structure
+      │   │   ├── dashboard/          # User dashboard
+      │   │   ├── survey/             # Lifestyle survey form
+      │   │   └── auth/               # Authentication routes
+      │   ├── components/             # UI Components
+      │   ├── lib/                    # Utility functions (AI, scoring)
+      │   ├── styles/                 # Tailwind & globals
+      │   └── types/                  # TypeScript types
+      └── public/                     # Assets and images
 ```
 
 ## 🛠️ Tech Stack
