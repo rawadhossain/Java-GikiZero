@@ -48,7 +48,7 @@
 ---
 
 ## 📁 Project Structure
-```
+``` bash
 java-giki-zero/
 backend/
 ├── src/main/java/com/example/gikizero
@@ -122,7 +122,7 @@ git clone https://github.com/rawadhossain/Java-GikiZero.git
 ```
 
 ### Configure Database
-```
+``` bash
 spring.datasource.url=jdbc:postgresql://localhost:5432/gikizero
 spring.datasource.username=your_username
 spring.datasource.password=your_password
@@ -136,7 +136,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 ###   Set Environment Variables
 Create a ```.env``` file in the root directory and fill in:
-```
+``` bash
 # Database
 DATABASE_URL="postgresql://your-database-url"
 
@@ -153,18 +153,18 @@ GEMINI_API_KEY=your_gemini_api_key
 ```
 
 ###  Install Dependencies
-```
+``` bash
 npm install
 ```
 
 ### Install Java dependencies
-```
+``` bash
 mvn clean install
 mvn spring-boot:run
 ```
 
 ###  Run the Development Server
-```
+``` bash
 npm run dev
 ```
 
